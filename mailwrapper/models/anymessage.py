@@ -1,6 +1,6 @@
 from typing import NamedTuple
 
 
-class AnyMessageEmailResponse(NamedTuple):
+class AnyMessageResponse(NamedTuple):
     email: str
     id: str
