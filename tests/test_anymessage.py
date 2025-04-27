@@ -13,4 +13,4 @@ def test_anymessage():
 
 def test_anymessage_get_code():
     anymessage = AnyMessage(TOKEN)
-    print(anymessage.get_code("1539027006"))
+    print(anymessage.get_code("11539027006"))
