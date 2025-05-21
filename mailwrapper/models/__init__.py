@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
-from mailwrapper.models.anymessage import AnyMessageResponse
-from mailwrapper.models.bower import BowerResponse
-from mailwrapper.models.types import EmailService
+from .anymessage import AnyMessageResponse
+from .bower import BowerResponse
+from .types import EmailService
 
 EmailResponses = AnyMessageResponse | BowerResponse
 

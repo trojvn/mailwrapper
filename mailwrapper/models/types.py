@@ -1,4 +1,4 @@
-from mailwrapper.anymessage import AnyMessage
-from mailwrapper.bower import Bower
+from ..anymessage import AnyMessage
+from ..bower import Bower
 
 EmailService = AnyMessage | Bower
