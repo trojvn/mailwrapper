@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
+from ..types import EmailService
 from .anymessage import AnyMessageResponse
 from .bower import BowerResponse
-from .types import EmailService
 
 EmailResponses = AnyMessageResponse | BowerResponse
 
