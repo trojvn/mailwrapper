@@ -2,7 +2,7 @@ import logging
 
 from httpwrapper import BaseClient, ClientConfig
 
-from .models.anymessage import AnyMessageResponse
+from mailwrapper.models.anymessage import AnyMessageResponse
 
 logger = logging.getLogger("mailwrapper")
 

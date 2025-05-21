@@ -2,7 +2,7 @@ import logging
 
 from httpwrapper import BaseClient, ClientConfig
 
-from .models.bower import BowerResponse
+from mailwrapper.models.bower import BowerResponse
 
 logger = logging.getLogger("mailwrapper")
 
