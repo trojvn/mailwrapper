@@ -1,10 +1,6 @@
 from dataclasses import dataclass
 
-from ..types import EmailService
-from .anymessage import AnyMessageResponse
-from .bower import BowerResponse
-
-EmailResponses = AnyMessageResponse | BowerResponse
+from mailwrapper.aliases import EmailResponses, EmailService
 
 
 @dataclass
