@@ -34,6 +34,19 @@ class AsyncBower(BaseAsyncClient):
                 if _id and email:
                     return BowerResponse(email=email, id=_id)
 
+    async def get_email_loop(
+        self,
+        service: str,
+        domain: str,
+        *,
+        wait_time: int = 60,
+    ) -> BowerResponse | None:
+        future = datetime.now() + timedelta(seconds=wait_time)
+        while future > datetime.now():
+            if response := await self.get_email(service, domain):
+                return response
+            await asyncio.sleep(1)
+
     async def get_code(self, _id: str) -> str:
         """Сразу отправляет код (без текста)"""
         params = {"api_key": self.__token, "mailId": _id}

@@ -35,6 +35,20 @@ class AnyMessage(BaseClient):
                     if email and _id:
                         return AnyMessageResponse(email=email, id=_id)
 
+    def get_email_loop(
+        self,
+        site: str,
+        domain: str,
+        regex: str = "",
+        *,
+        wait_time: int = 60,
+    ) -> AnyMessageResponse | None:
+        future = datetime.now() + timedelta(seconds=wait_time)
+        while future > datetime.now():
+            if response := self.get_email(site, domain, regex):
+                return response
+            sleep(1)
+
     def get_code(self, _id: str) -> str:
         params = {"token": self.__token, "id": _id}
         r = self._get("/email/getmessage", params, self.__config)

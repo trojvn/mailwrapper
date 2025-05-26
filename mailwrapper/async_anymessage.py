@@ -37,6 +37,20 @@ class AsyncAnyMessage(BaseAsyncClient):
                     if email and _id:
                         return AnyMessageResponse(email=email, id=_id)
 
+    async def get_email_loop(
+        self,
+        site: str,
+        domain: str,
+        regex: str = "",
+        *,
+        wait_time: int = 60,
+    ) -> AnyMessageResponse | None:
+        future = datetime.now() + timedelta(seconds=wait_time)
+        while future > datetime.now():
+            if response := await self.get_email(site, domain, regex):
+                return response
+            await asyncio.sleep(1)
+
     async def get_code(self, _id: str) -> str:
         params = {"token": self.__token, "id": _id}
         r = await self._get("/email/getmessage", params, self.__config)
