@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime, timedelta
+from time import sleep
 
 from httpwrapper import BaseClient, ClientConfig
 
@@ -40,4 +42,12 @@ class Bower(BaseClient):
                 if json_data.get("status", 0) != 1:
                     return ""
                 return json_data.get("code", "")
+        return ""
+
+    def get_code_loop(self, _id: str, *, wait_time: int = 60) -> str:
+        future = datetime.now() + timedelta(seconds=wait_time)
+        while future > datetime.now():
+            if code := self.get_code(_id):
+                return code
+            sleep(1)
         return ""

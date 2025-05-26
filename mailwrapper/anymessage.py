@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime, timedelta
+from time import sleep
 
 from httpwrapper import BaseClient, ClientConfig
 
@@ -44,4 +46,12 @@ class AnyMessage(BaseClient):
                         return value
                     if message := json_data.get("message", ""):
                         return message
+        return ""
+
+    def get_code_loop(self, _id: str, *, wait_time: int = 60) -> str:
+        future = datetime.now() + timedelta(seconds=wait_time)
+        while future > datetime.now():
+            if code := self.get_code(_id):
+                return code
+            sleep(1)
         return ""

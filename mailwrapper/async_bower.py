@@ -1,4 +1,6 @@
+import asyncio
 import logging
+from datetime import datetime, timedelta
 
 from aiohttp import ClientTimeout
 from httpwrapper import AsyncClientConfig, BaseAsyncClient
@@ -42,4 +44,13 @@ class AsyncBower(BaseAsyncClient):
                 if json_data.get("status", 0) != 1:
                     return ""
                 return json_data.get("code", "")
+        return ""
+
+    async def get_code_loop(self, _id: str, *, wait_time: int = 60) -> str:
+        """Сразу отправляет код (без текста)"""
+        future = datetime.now() + timedelta(seconds=wait_time)
+        while future > datetime.now():
+            if code := await self.get_code(_id):
+                return code
+            await asyncio.sleep(1)
         return ""

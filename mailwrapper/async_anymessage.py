@@ -1,4 +1,6 @@
+import asyncio
 import logging
+from datetime import datetime, timedelta
 
 from aiohttp import ClientTimeout
 from httpwrapper import AsyncClientConfig, BaseAsyncClient
@@ -46,4 +48,12 @@ class AsyncAnyMessage(BaseAsyncClient):
                         return value
                     if message := json_data.get("message", ""):
                         return message
+        return ""
+
+    async def get_code_loop(self, _id: str, *, wait_time: int = 60) -> str:
+        future = datetime.now() + timedelta(seconds=wait_time)
+        while future > datetime.now():
+            if code := await self.get_code(_id):
+                return code
+            await asyncio.sleep(1)
         return ""
