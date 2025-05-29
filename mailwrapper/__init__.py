@@ -1,6 +1,7 @@
 from mailwrapper.anymessage import AnyMessage
 from mailwrapper.async_anymessage import AsyncAnyMessage
 from mailwrapper.async_bower import AsyncBower
+from mailwrapper.async_yuharan import AsyncYuharan
 from mailwrapper.bower import Bower
 from mailwrapper.models.anymessage import AnyMessageResponse
 from mailwrapper.models.bower import BowerResponse
@@ -12,4 +13,5 @@ __all__ = [
     "BowerResponse",
     "AsyncAnyMessage",
     "AsyncBower",
+    "AsyncYuharan",
 ]
