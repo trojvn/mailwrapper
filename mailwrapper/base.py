@@ -13,7 +13,7 @@ class BaseAnyMessage(BaseAsyncClient):
     def __init__(self, url: str, token: str, proxy: str | None = None):
         self.__token = token
         timeout = ClientTimeout(total=10, connect=10)
-        self.__config = AsyncClientConfig(1, timeout, 0, 0, proxy=proxy)
+        self.__config = AsyncClientConfig(3, timeout, 0, 0, proxy=proxy)
         self.__logger = logging.getLogger("mailwrapper")
         super().__init__(url, config=self.__config)
 
