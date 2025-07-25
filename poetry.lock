@@ -350,7 +350,7 @@ httpx = "^0.28.1"
 type = "git"
 url = "https://github.com/trojvn/httpwrapper.git"
 reference = "HEAD"
-resolved_reference = "6998f427b57502b5be1998ae22023491385bd644"
+resolved_reference = "b43118ee727fb07b50efc8c6949d6c0d1eabe387"
 
 [[package]]
 name = "httpx"

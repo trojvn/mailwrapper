@@ -10,12 +10,12 @@ from mailwrapper.models.anymessage import AnyMessageResponse
 
 
 class BaseAnyMessage(BaseAsyncClient):
-    def __init__(self, url: str, token: str):
+    def __init__(self, url: str, token: str, proxy: str | None = None):
         self.__token = token
         timeout = ClientTimeout(total=10, connect=10)
-        self.__config = AsyncClientConfig(1, timeout, 0, 0)
+        self.__config = AsyncClientConfig(1, timeout, 0, 0, proxy=proxy)
         self.__logger = logging.getLogger("mailwrapper")
-        super().__init__(url)
+        super().__init__(url, config=self.__config)
 
     async def get_email(
         self,
@@ -26,7 +26,7 @@ class BaseAnyMessage(BaseAsyncClient):
         params = {"token": self.__token, "domain": domain, "site": site}
         if regex:
             params["regex"] = regex
-        r = await self._get("/email/order", params, self.__config)
+        r = await self._get("/email/order", params)
         if r.status == 200:
             if json_data := await r.json():
                 self.__logger.info(f"get_email: {json_data}")
@@ -54,7 +54,7 @@ class BaseAnyMessage(BaseAsyncClient):
 
     async def get_code(self, _id: str) -> str:
         params = {"token": self.__token, "id": _id}
-        r = await self._get("/email/getmessage", params, self.__config)
+        r = await self._get("/email/getmessage", params)
         if r.status == 200:
             if json_data := await r.json():
                 self.__logger.info(f"get_code: {json_data}")
